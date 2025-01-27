@@ -4,3 +4,4 @@ mysql
 werkzeug
 flask-mail
 mysql-connector-python
+logging

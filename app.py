@@ -6,14 +6,20 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import random
+# app.py
+import logging
+import logging_config  # Automatically sets up logging
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
+# Main code
+logging.info('Application started.')
+
 # MySQL Configuration
 app.config['MYSQL_HOST'] = '127.0.0.1'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'abc@123'
+app.config['MYSQL_PASSWORD'] = 'jroshan@98'
 app.config['MYSQL_DB'] = 'quiz_app'
 
 mysql = MySQL(app)
@@ -39,7 +45,7 @@ def send_verification_email(email, otp):
     
     #https://security.google.com/settings/security/apppasswords
     sender_email = "jroshan731@gmail.com"
-    sender_password = "virat@18"
+    sender_password = "abc@123"
     subject = "Email Verification Code"
 
     message = MIMEMultipart()
@@ -177,4 +183,6 @@ def quiz(quiz_id):
 # 3. questions (id INT AUTO_INCREMENT PRIMARY KEY, quiz_id INT, question_text TEXT, correct_option VARCHAR(100))
 
 if __name__ == '__main__':
+    logging.info("Running the main function.")
     app.run(debug=True)
+# http://127.0.0.1:5000
