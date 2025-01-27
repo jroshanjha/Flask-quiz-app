@@ -1,7 +1,24 @@
-Flask
-flask_mysqldb
+# Flask
+# flask_mysqldb
 mysql 
-werkzeug
-flask-mail
-mysql-connector-python
-logging
+# werkzeug
+# flask-mail
+# mysql-connector-python
+# logging
+
+
+Flask==2.3.3
+Flask-SQLAlchemy==3.1.1
+Flask-Login==0.6.2
+Flask-Mail==0.9.1
+Flask-WTF==1.1.1
+Flask-Migrate==4.0.5
+python-dotenv==1.0.0
+mysqlclient==2.2.0
+bcrypt==4.0.1
+PyJWT==2.8.0
+twilio==8.5.0
+email-validator==2.0.0
+phonenumbers==8.13.20
+Werkzeug==2.3.7
+itsdangerous==2.1.2

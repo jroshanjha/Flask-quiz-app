@@ -12,6 +12,7 @@ config/
 # Ignore node_modules
 node_modules/
 myvenv/
+venv/
 
 # Ignore database files
 *.db

@@ -1,6 +1,5 @@
 import logging
 from logging.handlers import RotatingFileHandler
-
 # Configure logging
 logging.basicConfig(
     filename='app.log',
@@ -19,5 +18,4 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
-
 logging.info('This is a log message.')

@@ -1,0 +1,79 @@
+combined_app/
+├── app.py                # Main entry point
+├── project1/             # First project
+│   ├── __init__.py       # Project 1 initialization
+│   ├── routes.py         # Project 1 routes
+│   ├── models.py         # Project 1 models
+│   └── templates/        # Templates for Project 1
+│       └── project1/
+├── project2/             # Second project
+│   ├── __init__.py       # Project 2 initialization
+│   ├── routes.py         # Project 2 routes
+│   ├── models.py         # Project 2 models
+│   └── templates/        # Templates for Project 2
+│       └── project2/
+├── static/               # Shared static files (CSS, JS, images)
+├── templates/            # Shared templates (e.g., base.html)
+└── requirements.txt      # Dependencies
+
+project1/__init__.py 
+from flask import Blueprint
+
+project1 = Blueprint('project1', __name__, template_folder='templates/project1')
+
+from . import routes
+
+project2/__init__.py
+from flask import Blueprint
+
+project2 = Blueprint('project2', __name__, template_folder='templates/project2')
+
+from . import routes
+
+app.py 
+
+from flask import Flask
+from project1 import project1
+from project2 import project2
+
+app = Flask(__name__)
+app.secret_key = 'your_secret_key'
+
+# Register blueprints
+app.register_blueprint(project1, url_prefix='/project1')
+app.register_blueprint(project2, url_prefix='/project2')
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+templates/base.html 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Combined Flask Application</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Combined App</h1>
+        <nav>
+            <a href="/project1">Project 1</a>
+            <a href="/project2">Project 2</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2025 Combined App</p>
+    </footer>
+</body>
+</html>
+
+templates/project1/home.html 
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Project 1 Home Page</h2>
+<p>This is the content for Project 1.</p>
+{% endblock %}
