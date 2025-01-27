@@ -1,0 +1,6 @@
+Flask
+flask_mysqldb
+mysql 
+werkzeug
+flask-mail
+mysql-connector-python
