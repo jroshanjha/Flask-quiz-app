@@ -28,3 +28,8 @@ flask-marshmallow
 marshmallow-sqlalchemy
 
 uvicorn
+
+motor
+pymongo
+
+pymysql

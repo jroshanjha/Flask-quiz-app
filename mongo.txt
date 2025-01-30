@@ -1,0 +1,43 @@
+MongoDB:- 
+insertOne , insertMany([{},{}])
+df.employees.find() / find({})
+df.employees.find() / find({})
+df.employees.findOne({salary:'1L'})
+df.employees.findOne({ _id: ObjectId("yourObjectIdHere") })
+df.employees.find({},{_id:0,name:1}
+
+db.employees.updateOne( { title: "Post Title 1" }, { $set: { likes: 2 } } )
+
+
+db.movies.find( {
+     year: 2010,
+     $or: [ { "awards.wins": { $gte: 5 } }, { genres: "Drama" } ]
+} )
+
+db.movies.find( {
+     year: 2010,
+     $or: [ { "awards.wins": { $gte: 5 } }, { genres: "Drama" } ]
+} )
+
+itcount, limit
+
+db.ratings.find({movieId:300, rating:{$gte:2.4}})
+db.ratings.find({movieId:300, rating:{$:2.4}})
+
+
+
+db.movies.deleteOne( { cast: "Brad Pitt" } )
+
+db.movies.deleteMany( { cast: "Brad Pitt" } )
+
+
+function printStudents(pageNumber, nPerPage) {
+  print( "Page: " + pageNumber );
+  db.students.find()
+             .sort( { _id: 1 } )
+             .skip( pageNumber > 0 ? ( ( pageNumber - 1 ) * nPerPage ) : 0 )
+             .limit( nPerPage )
+             .forEach( student => {
+               print( student.name );
+             } );
+}
