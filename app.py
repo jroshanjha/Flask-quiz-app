@@ -36,13 +36,13 @@ def create_df():
     cursor.close()
     return "Table created successfully!"
 
+
 # Routes
 @app.route('/')
 def home():
     return render_template('home.html')
 
-def send_verification_email(email, otp):
-    
+def send_verification_email(email, otp):    
     #https://security.google.com/settings/security/apppasswords
     sender_email = "jroshan731@gmail.com"
     sender_password = "abc@123"

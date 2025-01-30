@@ -76,3 +76,5 @@ filemode: Determines how the file is opened. Options:
 'a' (default): Append to the file.
 'w': Overwrite the file.
 
+
+uvicorn fast-api:app --reload

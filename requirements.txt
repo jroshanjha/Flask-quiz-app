@@ -22,3 +22,9 @@ email-validator==2.0.0
 phonenumbers==8.13.20
 Werkzeug==2.3.7
 itsdangerous==2.1.2
+
+flask-restful
+flask-marshmallow 
+marshmallow-sqlalchemy
+
+uvicorn
