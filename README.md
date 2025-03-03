@@ -24,6 +24,7 @@ E-learning platforms
 Online assessments
 Knowledge-testing tools for organizations or individuals
 
+
 Usage on a Resume:
 Flask-Based Quiz Application
 Developed a scalable web application using Flask and MySQL for online quizzes, featuring secure user authentication, real-time email validation, and dynamic quiz management. Implemented a robust database schema to manage users, quizzes, and scores. Designed and integrated a responsive user interface with organized navigation, enhancing the user experience. Utilized Python logging for application monitoring and error tracking.
@@ -67,6 +68,7 @@ ERROR: A serious problem that might affect the program.
 CRITICAL: A severe error that may stop the program.
 format: Specifies how the log messages are formatted.
 
+
 Example: %(asctime)s - %(levelname)s - %(message)s includes:
 %(asctime)s: Timestamp of the log.
 %(levelname)s: Log level (e.g., DEBUG, INFO).
@@ -78,3 +80,16 @@ filemode: Determines how the file is opened. Options:
 
 
 uvicorn fast-api:app --reload
+
+## React app 
+
+npx create-react-app firstapp
+npm start
+
+npm install web-vitals
+npm install 
+
+# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:jroshan@98@localhost/quiz_app"
+# app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+docker build -t welcome-app .

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Performance Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { width: 80%; margin: auto; }
+        #charts { display: flex; flex-wrap: wrap; justify-content: center; }
+        .chart { width: 45%; margin: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Performance Dashboard</h2>
+        <input type="file" id="csvFile" accept=".csv">
+        <div id="charts">
+            <div id="chart1" class="chart"></div>
+            <div id="chart2" class="chart"></div>
+            <div id="chart3" class="chart"></div>
+            <div id="chart4" class="chart"></div>
+            <div id="chart5" class="chart"></div>
+            <div id="chart6" class="chart"></div>
+            <div id="chart7" class="chart"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('csvFile').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                const data = parseCSV(text);
+                generateCharts(data);
+            };
+            reader.readAsText(file);
+        });
+
+        function parseCSV(csvText) {
+            const rows = csvText.split('\n').map(row => row.split(','));
+            const headers = rows.shift();
+            const data = rows.map(row => Object.fromEntries(headers.map((h, i) => [h, row[i]])));
+            return { headers, data };
+        }
+
+        function generateCharts({ headers, data }) {
+            if (headers.length < 2) return;
+            const x = data.map(row => row[headers[0]]);
+            const y = data.map(row => parseFloat(row[headers[3]]));
+            const loanAmount = data.map(row => parseFloat(row[headers[6]]));
+            const loanInterest = data.map(row => parseFloat(row[headers[8]]));
+            const creditScore = data.map(row => parseFloat(row[headers[11]]));
+            const employmentExp = data.map(row => parseFloat(row[headers[4]]));
+            const loanPercentIncome = data.map(row => parseFloat(row[headers[9]]));
+
+            const barTrace = { x, y, type: 'bar', name: headers[3] };
+            Plotly.newPlot('chart1', [barTrace], { title: 'Bar Chart' });
+
+            const scatterTrace = { x, y, mode: 'markers', type: 'scatter', name: headers[3] };
+            Plotly.newPlot('chart2', [scatterTrace], { title: 'Scatter Plot' });
+
+            const histogramTrace = { x: loanAmount, type: 'histogram', name: headers[6] };
+            Plotly.newPlot('chart3', [histogramTrace], { title: 'Histogram' });
+
+            const boxTrace = { y: loanInterest, type: 'box', name: headers[8] };
+            Plotly.newPlot('chart4', [boxTrace], { title: 'Box Plot' });
+
+            const pieTrace = { labels: data.map(row => row[headers[7]]), values: creditScore, type: 'pie', name: headers[7] };
+            Plotly.newPlot('chart5', [pieTrace], { title: 'Pie Chart' });
+
+            const lineTrace = { x, y: employmentExp, type: 'line', name: headers[4] };
+            Plotly.newPlot('chart6', [lineTrace], { title: 'Line Chart' });
+
+            const areaTrace = { x, y: loanPercentIncome, fill: 'tozeroy', type: 'scatter', mode: 'none', name: headers[9] };
+            Plotly.newPlot('chart7', [areaTrace], { title: 'Area Chart' });
+        }
+    </script>
+</body>
+</html>

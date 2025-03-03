@@ -101,7 +101,6 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     db_user = db.query(User).filter(User.id == user_id).first()
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    
     try:
         db.delete(db_user)
         db.commit()

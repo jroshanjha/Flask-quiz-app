@@ -1,0 +1,61 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Posts (No Backend)</title>
+    <style>
+        #posts { border: 1px solid #ddd; padding: 10px; width: 300px; height: 400px; overflow-y: auto; }
+        .post { padding: 8px; margin-bottom: 5px; border-bottom: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+
+    <h2>Live Posts</h2>
+    <div id="posts"></div>
+
+    <h3>Add a Post</h3>
+    <input type="text" id="postTitle" placeholder="Title" required>
+    <textarea id="postContent" placeholder="Write something..." required></textarea>
+    <button onclick="addPost()">Post</button>
+
+    <script>
+        // Function to load posts from localStorage
+        function loadPosts() {
+            let postsDiv = document.getElementById("posts");
+            let posts = JSON.parse(localStorage.getItem("posts")) || [];
+            postsDiv.innerHTML = "";
+            posts.forEach(post => {
+                postsDiv.innerHTML += <div class='post'><strong>${post.title}</strong><br>${post.content}</div>;
+            });
+        }
+
+        // Function to add a new post
+        function addPost() {
+            let title = document.getElementById("postTitle").value;
+            let content = document.getElementById("postContent").value;
+
+            if (title.trim() === "" || content.trim() === "") {
+                alert("Title and content cannot be empty!");
+                return;
+            }
+
+            let posts = JSON.parse(localStorage.getItem("posts")) || [];
+            posts.unshift({ title, content }); // Add new post at the beginning
+            localStorage.setItem("posts", JSON.stringify(posts));
+
+            document.getElementById("postTitle").value = "";
+            document.getElementById("postContent").value = "";
+
+            loadPosts(); // Reload posts
+        }
+
+        // Load posts on page load
+        loadPosts();
+
+        // Auto-refresh posts every 5 seconds
+        setInterval(loadPosts, 5000);
+    </script>
+
+</body>
+</html>

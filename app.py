@@ -66,6 +66,7 @@ def send_verification_email(email, otp):
     except Exception as e:
         print(f"Failed to send email: {e}")
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
