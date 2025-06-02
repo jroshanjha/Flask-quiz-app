@@ -1,0 +1,67 @@
+# ⚡ What is FastAPI?
+# FastAPI is a modern, high-performance web framework for building RESTful APIs with Python 3.7+, based on Starlette and Pydantic.
+
+# 💡 Why FastAPI?
+
+# 🚀 Blazing Fast (thanks to Starlette and async support)
+
+# 📜 Auto-generated docs (Swagger/OpenAPI & ReDoc)
+
+# ✅ Built-in data validation (via Pydantic)
+
+# 🧪 Easy testing and dependency injection
+
+# ⚙️ Great for ML models, data apps, microservices
+
+
+Get:- http://127.0.0.1:8000/items/
+
+Post:- http://127.0.0.1:8000/items/
+{
+"name":"jroshan",
+"price":34.54,
+"is_offer":1
+}
+
+Put:- http://127.0.0.1:8000/items/2
+{
+  "item_id": 2,
+  "item": {
+    "name": "jroshan123",
+    "price": 34.54,
+    "is_offer": true
+  }
+}
+
+
+🛠 12. Integrating with Databases
+SQLite, PostgreSQL with SQLAlchemy
+
+Database session handling with dependencies 
+
+
+🚀 15. Deployment
+Uvicorn + Gunicorn (for production)
+
+FastAPI on:
+
+Render
+
+Heroku
+
+Docker + AWS ECS
+
+Azure App Service
+
+Google Cloud Run 
+
+
+📊 16. Bonus: FastAPI + ML Model Deployment
+Load trained model with joblib or pickle
+
+Predict via POST route
+
+@app.post("/predict/")
+def predict(data: InputData):
+    prediction = model.predict([data.dict().values()])
+    return {"prediction": prediction.tolist()}

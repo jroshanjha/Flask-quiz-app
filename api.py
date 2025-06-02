@@ -20,6 +20,13 @@ app.config['SECRET_KEY'] = 'mysecretkey'
 def index():
     return "Hello, World!"
 
+# testing 
+@app.route('/joyti',methods=['GET'])
+def joyti():
+    return "Hello, World!- JOYTI"
+@app.route('/joyti-name',methods=['GET'])
+def joyti_name():
+    return "Hello, World!- JOYTI Name!"
 @app.route('/users',methods=['GET'])
 def index_users():
     return jsonify(users),201
@@ -46,7 +53,8 @@ def add_user():
         abort(404)
     users.append(data)
     return jsonify(data),201
-
+## api.py , api.mysql , api.doc, api.xmls or api.csv
+#3 a
 @app.route('/users/<int:user_id>',methods=['PUT'])
 def update_user(user_id):
     data = request.get_json(force=True)

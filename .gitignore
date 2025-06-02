@@ -21,3 +21,4 @@ Dockers/myenv/
 # Ignore all files in the temp folder except `important.txt`
 temp/*
 !temp/important.txt
+.qodo
