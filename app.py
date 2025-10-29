@@ -10,8 +10,15 @@ import random
 import logging
 import logging_config  # Automatically sets up logging
 
+# 2025 - 10 - 27
+
+from flask_cors import CORS
+from db_config import get_db_connection # Database configuration module
+
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
+
+CORS(app)  # Enable Cross-Origin Requests
 
 # Main code
 logging.info('Application started.')
@@ -20,7 +27,7 @@ logging.info('Application started.')
 app.config['MYSQL_HOST'] = '127.0.0.1'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'jroshan@98'
-app.config['MYSQL_DB'] = 'quiz_app'
+app.config['MYSQL_DB'] = 'hospital'
 
 mysql = MySQL(app)
 
@@ -41,6 +48,7 @@ def create_df():
 @app.route('/')
 def home():
     return render_template('home.html')
+    #return render_template('_login.html')
 
 def send_verification_email(email, otp):    
     #https://security.google.com/settings/security/apppasswords
@@ -107,6 +115,28 @@ def verify_email():
 
     return render_template('verify_email.html', email=email,otp = otp_store[email])
 
+# 2025 - 10 -27
+@app.route('/user-login', methods=['GET'])
+def index():
+    return render_template('_login.html')
+
+@app.route('/user-login', methods=['POST'])
+def user_login():
+    data = request.get_json()  # expecting JSON from frontend
+    username = data.get('username')
+    password = data.get('password')
+    # cursor = mysql.connection.cursor()
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM users WHERE username=%s AND password=%s", (username, password))
+    user = cursor.fetchone()
+
+    if user:
+        return jsonify({"status": "success", "message": "Login successful!", "user": user})
+    else:
+        return jsonify({"status": "error", "message": "Invalid username or password"}), 401
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -127,6 +157,7 @@ def login():
             flash('Invalid email or password.', 'danger')
 
     return render_template('login.html')
+
 
 @app.route('/logout')
 def logout():
@@ -183,7 +214,103 @@ def quiz(quiz_id):
 # 2. quizzes (id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(100))
 # 3. questions (id INT AUTO_INCREMENT PRIMARY KEY, quiz_id INT, question_text TEXT, correct_option VARCHAR(100))
 
+
+# 2025 - 10 - 27 
+
+# ✅ Fetch all records
+@app.route('/customers', methods=['GET'])
+def get_customers():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM customers")
+        rows = cursor.fetchall()
+        cursor.close()
+        conn.close()
+        return jsonify(rows)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+# ✅ Insert new record
+@app.route('/customers', methods=['POST'])
+def add_customer():
+    data = request.get_json()
+    name = data.get('name')
+    email = data.get('email')
+    country = data.get('country')
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO customers (name, email, country) VALUES (%s, %s, %s)",
+            (name, email, country)
+        )
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return jsonify({'message': 'Customer added successfully'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# ✅ Get single record by ID
+@app.route('/customers/<int:id>', methods=['GET'])
+def get_customer(id):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM customers WHERE id = %s", (id,))
+        row = cursor.fetchone()
+        cursor.close()
+        conn.close()
+        if row:
+            return jsonify(row)
+        else:
+            return jsonify({'message': 'Customer not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+# ✅ Update record
+@app.route('/customers/<int:id>', methods=['PUT'])
+def update_customer(id):
+    data = request.get_json()
+    name = data.get('name')
+    email = data.get('email')
+    country = data.get('country')
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            "UPDATE customers SET name=%s, email=%s, country=%s WHERE id=%s",
+            (name, email, country, id)
+        )
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return jsonify({'message': 'Customer updated successfully'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+# ✅ Delete record
+@app.route('/customers/<int:id>', methods=['DELETE'])
+def delete_customer(id):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM customers WHERE id=%s", (id,))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return jsonify({'message': 'Customer deleted successfully'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+
 if __name__ == '__main__':
     logging.info("Running the main function.")
-    app.run(debug=True)
+    #app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
 # http://127.0.0.1:5000

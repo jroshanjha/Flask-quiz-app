@@ -31,3 +31,13 @@ uvicorn
 motor
 pymongo
 pymysql
+
+
+
+# 2025 - 10 - 27 
+mysql-connector-python 
+flask-cors
+werkzeug
+
+flask-mysql-connector
+flask-jwt-extended

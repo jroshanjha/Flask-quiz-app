@@ -123,3 +123,71 @@ docker pull jroshan123/welcome-app1:latest
 
 docker run -d -p 8080:8080 jroshan123/welcome-app1:latest
 
+
+# 2025 - 10 - 27 
+# Backend handline in flask with using mysql
+
+# install Dependencies 
+pip install flask mysql-connector-python flask-cors
+
+flask_mysql_app/
+│
+├── app.py
+├── db_config.py
+├── requirements.txt
+└── .env
+
+📊 7. Test Using curl or Postman
+➕ Add Customer
+
+curl -X POST http://127.0.0.1:5000/customers \
+-H "Content-Type: application/json" \
+-d '{"name":"Alice","email":"alice@example.com","country":"India"}'
+
+📜 Fetch All
+curl http://127.0.0.1:5000/customers
+
+
+🧾 Step 5: Example JSON Requests
+Signup
+POST /signup
+Content-Type: application/json
+
+{
+  "username": "roshan",
+  "email": "roshan@example.com",
+  "password": "mypassword"
+}
+
+✅ Response:
+{"status": "success", "message": "Signup successful! Please login."}
+
+Login
+POST /login
+Content-Type: application/json
+
+{
+  "username": "roshan",
+  "password": "mypassword"
+}
+
+✅ Response:
+{
+  "status": "success",
+  "message": "Login successful!",
+  "token": "eyJ0eXAiOiJKV1QiLCJh..."
+}
+
+Access Protected Dashboard
+GET /dashboard
+Authorization: Bearer <token>
+
+✅ Response:
+{
+  "status": "success",
+  "message": "Welcome roshan!",
+  "data": {
+    "user": "roshan",
+    "role": "Data Analyst"
+  }
+}

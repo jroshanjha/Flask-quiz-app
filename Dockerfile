@@ -19,6 +19,16 @@ EXPOSE 8000
 CMD ["uvicorn", "main:project", "--host", "0.0.0.0", "--port", "8000"]
 
 
+# The Dockerfile snippet you provided is creating a Docker image for a Python application using the `python:3.11-slim` base image. Here's what each instruction does:
+# FROM python:3.11-slim
+# WORKDIR /app
+# COPY . .
+# RUN pip install -r requirements.txt
+# EXPOSE 5000
+# CMD ["python", "app.py"]
+
+
+
 # FROM nginx:alpine
 
 # # Set the working directory
