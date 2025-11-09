@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        input[type="text"] { padding: 6px; width: 300px; }
+        button { padding: 6px 12px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background: #f2f2f2; }
+        tr:hover { background-color: #f9f9f9; }
+    </style>
+</head>
+<body>
+
+    <h2>Quiz Dashboard</h2>
+
+    <form method="GET" action="{{ url_for('admin_dashboard') }}">
+        <input type="text" name="search" value="{{ search_query }}" placeholder="🔍 Search quiz, question, or option">
+        <button type="submit">Search</button>
+        {% if search_query %}
+            <a href="{{ url_for('admin_dashboard') }}">Clear</a>
+        {% endif %}
+    </form>
+
+    <table>
+        <tr>
+            <th>Quiz</th>
+            <th>Question</th>
+            <th>Options</th>
+            <th>Correct</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            <td>{{ row.title }}</td>
+            <td>{{ row.question_text or '-' }}</td>
+            <td>
+                A: {{ row.option_a or '' }}<br>
+                B: {{ row.option_b or '' }}<br>
+                C: {{ row.option_c or '' }}<br>
+                D: {{ row.option_d or '' }}
+            </td>
+            <td>{{ row.correct_option or '' }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4" style="text-align:center;">No records found.</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

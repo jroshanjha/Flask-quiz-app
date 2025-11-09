@@ -1,13 +1,55 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Email Verification</h2>
-<p>We have sent a verification code to {{ email }}. Please enter it below:</p>
-<form method="post">
-    <div class="mb-3">
-        <label for="otp" class="form-label">Verification Code</label>
-        <input type="text" name="otp" class="form-control" value="{{otp}}"required>
-    </div>
-    <button type="submit" class="btn btn-primary">Verify</button>
-</form>
-{% endblock %}
 
+<div class="d-flex justify-content-center align-items-center" style="min-height: 75vh;">
+    <div class="card shadow-lg border-0 p-4" style="max-width: 450px; width: 100%; border-radius: 15px;">
+        <div class="text-center mb-3">
+            <i class="bi bi-envelope-check text-primary" style="font-size: 2.5rem;"></i>
+            <h3 class="mt-2">Email Verification</h3>
+            <p class="text-muted small">
+                We’ve sent a verification code to <strong>{{ email }}</strong>.<br>
+                Please enter it below to verify your account.
+            </p>
+        </div>
+
+        <form method="post">
+            <input type="hidden" name="email" value="{{ email }}">
+            
+            <div class="mb-3">
+                <label for="otp" class="form-label fw-semibold">Verification Code</label>
+                <input type="text" name="otp" id="otp" class="form-control text-center fs-5 py-2" 
+                       placeholder="Enter 6-digit code" required autofocus>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-2 mt-2 fw-semibold">
+                <i class="bi bi-shield-check"></i> Verify Account
+            </button>
+        </form>
+
+        <div class="text-center mt-3">
+            <p class="text-muted small">Didn’t receive the code? 
+                <a href="#" class="text-decoration-none fw-semibold">Resend</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #e3f2fd, #f1f8e9);
+    }
+    .card {
+        background: #fff;
+        transition: all 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    button.btn-primary:hover {
+        background-color: #0069d9;
+        transform: scale(1.02);
+    }
+</style>
+
+{% endblock %}

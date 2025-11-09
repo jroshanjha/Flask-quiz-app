@@ -41,3 +41,4 @@ werkzeug
 
 flask-mysql-connector
 flask-jwt-extended
+Flask-WTF

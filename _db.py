@@ -8,7 +8,7 @@ conn = mysql.connector.connect(
     host="localhost",
     user="root",
     password="jroshan@98",
-    #database="quiz_app"
+    database="quiz_app"
 )
 cursor = conn.cursor()
 
@@ -143,7 +143,7 @@ def score_table():
         conn.commit()
         # conn.close()
         print("Table 'scores' created successfully!")
-score_table()
+# score_table()
 conn.close()
     
 

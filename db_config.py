@@ -9,10 +9,20 @@ def get_db_connection():
         host=os.getenv("MYSQL_HOST", "localhost"),
         user=os.getenv("MYSQL_USER", "root"),
         password=os.getenv("MYSQL_PASSWORD", "jroshan@98"),
-        database=os.getenv("MYSQL_DB", "hospital")
+        database=os.getenv("MYSQL_DB", "quiz_app")
     )
     return connection
 
+def db_conn():
+  # ✅ MySQL connection
+  # 
+  db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="jroshan@98",  # your MySQL password
+    database="quiz_app"  # your database name
+)
+  return db
 
 # Created _at_ 2025 - 10 - 27
 def create_users_table():

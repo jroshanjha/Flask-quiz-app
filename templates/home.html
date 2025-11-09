@@ -1,8 +1,56 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<div class="text-center">
-    <h1>Welcome to the Quiz App</h1>
-    <p>Your ultimate platform for engaging quizzes!</p>
-    <a href="{{ url_for('register') }}" class="btn btn-primary">Get Started</a>
+<style>
+    .hero-section {
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        background: linear-gradient(135deg, #0d6efd, #6610f2);
+        color: #fff;
+        border-radius: 12px;
+        padding: 60px 20px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        margin-top: 50px;
+    }
+    .hero-section h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+    .hero-section p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto 25px;
+        line-height: 1.6;
+    }
+    .btn-glow {
+        background-color: #ffc107;
+        color: #212529;
+        font-weight: 600;
+        padding: 12px 30px;
+        border-radius: 8px;
+        border: none;
+        transition: 0.3s ease;
+        box-shadow: 0 0 12px rgba(255, 193, 7, 0.7);
+        text-transform: uppercase;
+    }
+    .btn-glow:hover {
+        background-color: #ffca2c;
+        transform: translateY(-2px);
+        box-shadow: 0 0 18px rgba(255, 193, 7, 1);
+    }
+</style>
+
+<div class="container">
+    <div class="hero-section">
+        <h1>🎯 Welcome to the Quiz App</h1>
+        <p>Challenge yourself, learn new things, and track your progress with interactive quizzes designed to test your skills!</p>
+        <a href="{{ url_for('register') }}" class="btn btn-glow">Get Started</a>
+    </div>
 </div>
 {% endblock %}
+
